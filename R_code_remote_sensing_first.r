@@ -12,5 +12,5 @@ cl <- colorRampPalette(c("black","grey","light grey"))(100)
 plot(p224r63_2011, col=cl)
 
 # colour change -> new 
-cl <- colorRampPalette(c("purple","green","magenta"))(100)
+cl <- colorRampPalette(c("blue","red","magenta","pink","white"))(100)
 plot(p224r63_2011, col=cl)
