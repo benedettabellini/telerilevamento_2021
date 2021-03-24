@@ -7,10 +7,70 @@ setwd("/Users/benedettabellini/lab/")
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
 plot(p224r63_2011)
 
+### Day 2 
 # colour change
 cl <- colorRampPalette(c("black","grey","light grey"))(100)
 plot(p224r63_2011, col=cl)
 
 # colour change -> new 
-cl <- colorRampPalette(c("blue","red","magenta","pink","white"))(100)
-plot(p224r63_2011, col=cl)
+cls <- colorRampPalette(c("blue","red","magenta","pink","white"))(100)
+plot(p224r63_2011, col=cls)
+
+### Day 3
+# Bande Landsat
+# B1: blu
+# B2: verde
+# B3: rosso
+# B4: infrarosso vicino
+# B5: infrarosso medio
+# B6: infrarosso termico
+# B7: infrarosso medio 
+
+# dev.off will clean the current graph
+dev.off()
+
+# plot band 1 with a predefined colorRampPalette 
+plot(p224r63_2011$B1_sre)
+
+clt <- colorRampPalette(c('purple','orange','pink','white'))(100)
+plot(p224r63_2011$B1_sre, col=clt)
+
+dev.off()
+
+# par(mfrow...) prepara lo schermo a mettere le immagini in un dato numero di righe e colonne
+par(mfrow=c(1,2)) # par(mfcol...) se vogliamo usare prima il numero di colonne
+plot(p224r63_2011$B1_sre)
+plot(p224r63_2011$B2_sre)
+# 2 righe e 1 colonna
+par(mfrow=c(2,1))
+plot(p224r63_2011$B1_sre)
+plot(p224r63_2011$B2_sre)
+
+# Plottiamo le 4 immagini di Landsat in 4 righe e 1 colonna
+par(mfrow=c(4,1))
+plot(p224r63_2011$B1_sre)
+plot(p224r63_2011$B2_sre)
+plot(p224r63_2011$B3_sre)
+plot(p224r63_2011$B4_sre)
+
+# a quadrat of bands
+par(mfrow=c(2,2))
+plot(p224r63_2011$B1_sre)
+plot(p224r63_2011$B2_sre)
+plot(p224r63_2011$B3_sre)
+plot(p224r63_2011$B4_sre)
+
+# per ogni banda stabiliamo una colorRampPalette
+par(mfrow=c(2,2))
+
+clb <- colorRampPalette(c('dark blue','blue','light blue'))(100)
+plot(p224r63_2011$B1_sre, col=clb)
+
+clg <- colorRampPalette(c('dark green','green','light green'))(100)
+plot(p224r63_2011$B2_sre, col=clg)
+
+clr <- colorRampPalette(c('dark red','red','pink'))(100)
+plot(p224r63_2011$B3_sre, col=clr)
+
+clnir <- colorRampPalette(c('red','orange','yellow'))(100)
+plot(p224r63_2011$B4_sre, col=clnir)
