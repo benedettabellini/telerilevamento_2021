@@ -29,9 +29,10 @@ plot(p224r63_2011, col=cls)
 # dev.off will clean the current graph
 dev.off()
 
-# plot band 1 with a predefined colorRampPalette 
+# plot only band 1
 plot(p224r63_2011$B1_sre)
 
+# plot band 1 with a predefined colorRampPalette 
 clt <- colorRampPalette(c('purple','orange','pink','white'))(100)
 plot(p224r63_2011$B1_sre, col=clt)
 
