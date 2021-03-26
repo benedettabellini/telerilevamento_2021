@@ -109,7 +109,8 @@ install.packages("RStoolbox")
 # Richiamo pacchetto installato
 library(RStoolbox)
 
-
-
+# Installo il pacchetto ggplot2
+install.packages("ggplot2")
+library(ggplot2)
 
 
