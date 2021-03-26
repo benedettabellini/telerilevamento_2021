@@ -77,7 +77,7 @@ clnir <- colorRampPalette(c('red','orange','yellow'))(100)
 plot(p224r63_2011$B4_sre, col=clnir)
 
 ### Day 4
-# Visualiz data by RGB plotting
+# Visualizing data by RGB plotting
 # RGB permette di visualizzare tre bande per volta 
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
