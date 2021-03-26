@@ -78,6 +78,16 @@ plot(p224r63_2011$B4_sre, col=clnir)
 
 ### Day 4
 # Visualizing data by RGB plotting
+
+# Bande Landsat
+# B1: blu
+# B2: verde
+# B3: rosso
+# B4: infrarosso vicino
+# B5: infrarosso medio
+# B6: infrarosso termico
+# B7: infrarosso medio 
+
 # RGB permette di visualizzare tre bande per volta 
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
