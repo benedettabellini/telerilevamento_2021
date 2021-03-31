@@ -123,4 +123,29 @@ library(RStoolbox)
 install.packages("ggplot2")
 library(ggplot2)
 
+### DAY 5
+# Multitemporal set
+p224r63_1988 <- brick("p224r63_1988_masked.grd") # importo l'immagine satellitare del 1988 e le assegno un nome
+p224r63_1998 
+
+plot(p224r63_1988) # visualizzazione grafica delle singole bande
+plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="Lin") # uso per la visualizzazione tre bande quella del rosso, del verde e del blu
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") # associo NIR alla componente red 
+
+# Visualizzo in una finestra 2x1 l'immagine satellitare del 2011 e del 1988
+par(mfrow=c(2,1))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") 
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+
+# creo un pdf
+pdf("multitemp.pdf")
+par(mfrow=c(2,2)) 
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") 
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist") # use histogram stretching
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
+dev.off()
+
+
+
 
