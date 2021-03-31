@@ -5,3 +5,6 @@
 # install.packages("raster")
 library(raster)
 setwd("/Users/benedettabellini/lab/greenland/")
+
+install.packages("rasterVis") # installo il pacchetto rasterVis
+library(rasterVis) # richiamo il pacchetto installato
