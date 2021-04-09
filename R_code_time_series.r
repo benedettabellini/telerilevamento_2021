@@ -5,7 +5,8 @@
 # install.packages("raster")
 library(raster)
 
-#setwd("/Users/benedettabellini/lab/greenland/")install.packages("rasterVis") # installo il pacchetto rasterVis
+#setwd("/Users/benedettabellini/lab/greenland/")
+#install.packages("rasterVis") # installo il pacchetto rasterVis
 #library(rasterVis) # richiamo il pacchetto installato
 
 # Importo un file alla volta utilizzando la funzione raster 
@@ -35,3 +36,24 @@ import
 # Creazione di un file unico (raggruppo i file nella lista)
 TGr <- stack(import)
 plot(TGr) # visualizzo il singolo file 
+TGr
+levelplot(TGr)
+levelplot(TGr$lst_2000)
+
+cl <- colorRampPalette(c("blue","light blue","pink","red"))(100)
+levelplot(TGr,col.regions=cl)
+
+levelplot(TGr,col.regions=cl, names.attr=c("July 2000","July 2005", "July 2010", "July 2015"))
+
+levelplot(TGr,col.regions=cl, main="LST variation in time", names.attr=c("July 2000","July 2005", "July 2010", "July 2015"))
+
+#creo meltlist
+melt_list <- list.files(pattern="annual")
+melt_import <- lapply(melt_list,raster)
+melt <- stack(melt_import)
+melt
+levelplot(melt)
+melt_amount <- melt$X2007annual_melt - melt$X1979annual_melt
+clb <- colorRampPalette(c("blue", "white","red"))(100)
+plot(melt_amount, col=clb)
+levelplot(melt_amount, col.regions=clb)
