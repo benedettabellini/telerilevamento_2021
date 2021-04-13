@@ -140,7 +140,7 @@ plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 # creo un pdf
 pdf("multitemp.pdf")
 par(mfrow=c(2,2)) 
-plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") 
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") # uso stretch lineare
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist") # use histogram stretching
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
