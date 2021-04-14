@@ -5,9 +5,9 @@
 # install.packages("raster")
 library(raster)
 
-#setwd("/Users/benedettabellini/lab/greenland/")
-#install.packages("rasterVis") # installo il pacchetto rasterVis
-#library(rasterVis) # richiamo il pacchetto installato
+setwd("/Users/benedettabellini/lab/greenland/")
+install.packages("rasterVis") # installo il pacchetto rasterVis
+library(rasterVis) # richiamo il pacchetto installato
 
 # Importo un file alla volta utilizzando la funzione raster 
 lst_2000 <- raster("lst_2000.tif")
