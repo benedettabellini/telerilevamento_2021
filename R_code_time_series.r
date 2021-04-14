@@ -26,17 +26,17 @@ plot(lst_2005)
 plot(lst_2010)
 plot(lst_2015)
 
-# creo una lista di file 
-rlist <- list.files(pattern="lst")
+# creo una lista di file con la funzione list.files
+rlist <- list.files(pattern="lst") #prendo tutti i file che hanno 'lst' in comune nel nome 
 rlist
 # Importo con la funzione lapply la lista appena creata che contiene tutti i file 
-import <- lapply(rlist,raster) #la funzione raster è quella che importa tutti i file 
+import <- lapply(rlist,raster) #la funzione raster è quella che importa tutti i file e la applico alla lista  
 import
 
-# Creazione di un file unico (raggruppo i file nella lista)
+# Creazione di un gruppo unico di file raster (raggruppo i file nella lista) tramite la funzione stack
 TGr <- stack(import)
 plot(TGr) # visualizzo il singolo file 
-TGr
+plotRGB(TGr, 1, 2, 3, stretch="Lin") # creazione tre immagini sovrapposte del 2000,2005,2010
 levelplot(TGr)
 levelplot(TGr$lst_2000)
 
