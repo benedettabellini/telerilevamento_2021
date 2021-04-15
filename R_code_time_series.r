@@ -3,9 +3,10 @@
 # Data and code from Emanuela Cosma
 
 # install.packages("raster")
-library(raster)
+library(raster) # richiamo il pacchetto installato
 
 setwd("/Users/benedettabellini/lab/greenland/")
+
 install.packages("rasterVis") # installo il pacchetto rasterVis
 library(rasterVis) # richiamo il pacchetto installato
 
@@ -37,6 +38,7 @@ import
 TGr <- stack(import)
 plot(TGr) # visualizzo il singolo file 
 plotRGB(TGr, 1, 2, 3, stretch="Lin") # creazione tre immagini sovrapposte del 2000,2005,2010
+
 levelplot(TGr)
 levelplot(TGr$lst_2000)
 
