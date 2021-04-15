@@ -36,18 +36,22 @@ import
 
 # Creazione di un gruppo unico di file raster (raggruppo i file nella lista) tramite la funzione stack
 TGr <- stack(import)
+TGr
 plot(TGr) # visualizzo il singolo file 
+
 plotRGB(TGr, 1, 2, 3, stretch="Lin") # creazione tre immagini sovrapposte del 2000,2005,2010
+plotRGB(TGr, 2, 3, 4, stretch="Lin")
+plotRGB(TGr, 4, 3, 2, stretch="Lin")
 
 levelplot(TGr)
-levelplot(TGr$lst_2000)
+levelplot(TGr$lst_2000) #plotto un singolo strato con la media indicata 
 
-cl <- colorRampPalette(c("blue","light blue","pink","red"))(100)
-levelplot(TGr,col.regions=cl)
+cl <- colorRampPalette(c("blue","light blue","pink","red"))(100) # cambio colore della legenda 
+levelplot(TGr,col.regions=cl) # plotto l'immagine con il colore cambiato 
 
-levelplot(TGr,col.regions=cl, names.attr=c("July 2000","July 2005", "July 2010", "July 2015"))
+levelplot(TGr,col.regions=cl, names.attr=c("July 2000","July 2005", "July 2010", "July 2015")) # rinomino i layers all'interno dell'immagine
 
-levelplot(TGr,col.regions=cl, main="LST variation in time", names.attr=c("July 2000","July 2005", "July 2010", "July 2015"))
+levelplot(TGr,col.regions=cl, main="LST variation in time", names.attr=c("July 2000","July 2005", "July 2010", "July 2015")) # assegno un titolo all'immagine
 
 #creo meltlist
 melt_list <- list.files(pattern="annual")
