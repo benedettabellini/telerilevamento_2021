@@ -4,7 +4,7 @@ setwd("/Users/benedettabellini/lab/") #setto cartella di lavoro
 
 library(knitr) # richiamo il pacchetto knitr
 
-install.packages("tinytex") 
-library(tinytex)
+install.packages("tinytex") #installo pacchetto tinytex
+library(tinytex) # richiamo il pacchetto
 
-stitch("R_code_greenland.rtf", template=system.file("misc", "knitr-template.Rnw", package="knitr"))
+stitch("R_code_greenland.r.rtf", template=system.file("misc", "knitr-template.Rnw", package="knitr"))
