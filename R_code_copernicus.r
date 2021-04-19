@@ -13,5 +13,5 @@ cl <- colorRampPalette(c('light blue','green','red','yellow'))(100) # creo scala
 plot(albedo, col=cl) # plottiamo l'albedo con la scala di colori creata 
 
 # ricampionamento (diminuzione della risoluzione)
-albedores <- aggregate(albedo, fact=100) # diminuisco l'informazione di 1000 volte
+albedores <- aggregate(albedo, fact=100) # diminuisco l'informazione di 10000 volte
 plot(albedores, col=cl)
