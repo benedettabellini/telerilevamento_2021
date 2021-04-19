@@ -54,12 +54,12 @@ levelplot(TGr,col.regions=cl, names.attr=c("July 2000","July 2005", "July 2010",
 levelplot(TGr,col.regions=cl, main="LST variation in time", names.attr=c("July 2000","July 2005", "July 2010", "July 2015")) # assegno un titolo all'immagine
 
 #creo meltlist
-melt_list <- list.files(pattern="annual")
-melt_import <- lapply(melt_list,raster)
-melt <- stack(melt_import)
+melt_list <- list.files(pattern="annual") #creo una lista con dentro i file con i valori di ghiaccio negli anni dal '79 al 2007
+melt_import <- lapply(melt_list,raster) # applico alla lista creata la funzione raster per importarla
+melt <- stack(melt_import) # raggruppo tutti i file che ho importato
 melt
 levelplot(melt)
-melt_amount <- melt$X2007annual_melt - melt$X1979annual_melt
-clb <- colorRampPalette(c("blue", "white","red"))(100)
-plot(melt_amount, col=clb)
+melt_amount <- melt$X2007annual_melt - melt$X1979annual_melt # sottraggo l'immagine del 1979 al 2007
+clb <- colorRampPalette(c("blue", "white","red"))(100) # creo una scala di colori
+plot(melt_amount, col=clb) # plotto la differenza fra i due anni 
 levelplot(melt_amount, col.regions=clb)
