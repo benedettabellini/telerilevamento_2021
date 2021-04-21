@@ -18,3 +18,10 @@ plot(soc$map) #visualizzo l'immagine
 # # Unsupervised Classification with 20 classes
 soc20 <- unsuperClass(so, nClasses=20)
 plot(soc20$map)
+
+# Download an image from:
+# https://www.esa.int/ESA_Multimedia/Missions/Solar_Orbiter/(result_type)/images
+sun <- brick("Sun.png")
+# Unsupervised Classification
+sunc <- unsuperClass(sun, nClasses=3)
+plot(sunc$map) #visualizzo l'immagine 
