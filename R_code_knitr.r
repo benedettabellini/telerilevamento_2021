@@ -7,7 +7,5 @@ library(knitr) # richiamo il pacchetto knitr
 install.packages("tinytex") #installo pacchetto tinytex
 library(tinytex) # richiamo il pacchetto
 
-tinytex::install_tinytex()
-tinytex::tlmgr_update()
 
 stitch("R_code_greenland.r.rtf", template=system.file("misc", "knitr-template.Rnw", package="knitr"))
