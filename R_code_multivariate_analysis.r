@@ -1,4 +1,4 @@
-# R_code_multivariate_analysis,r
+# R_code_multivariate_analysis.r
 
 library(raster) #richiamo il pacchetto raster
 library(RStoolbox) # richiamo il pacchetto RStoolbox
