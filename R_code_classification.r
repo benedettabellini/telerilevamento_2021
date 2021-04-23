@@ -25,3 +25,20 @@ sun <- brick("Sun.png")
 # Unsupervised Classification
 sunc <- unsuperClass(sun, nClasses=3)
 plot(sunc$map) #visualizzo l'immagine 
+
+# Grand Canyon 
+# Download image from:
+# https://landsat.visibleearth.nasa.gov/view.php?id=80948
+
+gc <- brick("dolansprings_oli_2013088_canyon_lrg.jpg") # importo su R l'immagine
+plotRGB(gc, 1, 2, 3, stretch="lin") # plotto l'immagine con 3 strati 
+plotRGB(gc, 1, 2, 3, stretch="hist")
+
+# Unsupervised Classification with 2 classes
+gcc2 <- unsuperClass(gc, nClasses=2)
+gcc2
+plot(gcc2$map)
+
+# Unsupervised Classification with 4 classes
+gcc4 <- unsuperClass(gc, nClasses=4)
+plot(gcc4$map)
