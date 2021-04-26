@@ -13,7 +13,7 @@ plotRGB(so, 1, 2, 3, stretch="lin")
 
 # Unsupervised Classification
 soc <- unsuperClass(so, nClasses=3)
-plot(soc$map) #visualizzo l'immagine 
+plot(soc$map) #visualizzo l'immagine in particolare la mappa
 
 # # Unsupervised Classification with 20 classes
 soc20 <- unsuperClass(so, nClasses=20)
