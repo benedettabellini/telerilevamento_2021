@@ -12,6 +12,7 @@ so #visualizzo i dati dell'immagine
 plotRGB(so, 1, 2, 3, stretch="lin")
 
 # Unsupervised Classification
+set.seed(42) # permette di usare sempre le stesse regole per fare il modello
 soc <- unsuperClass(so, nClasses=3)
 plot(soc$map) #visualizzo l'immagine in particolare la mappa
 
