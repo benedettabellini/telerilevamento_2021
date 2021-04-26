@@ -10,6 +10,8 @@ plot(p224r63_2011) # plotto l'immagine con le varie bande
 
 p224r63_2011 # vedo informazione dell'immagine
 
-plot(p224r63_2011$B1_sre, p224r63_2011$B2_sre, col="red", pch=19, cex=2) 
+# plottiamo i valori dei pixel della banda 1 contro i valori dei pixel della banda 2
+plot(p224r63_2011$B1_sre, p224r63_2011$B2_sre, col="red", pch=19, cex=2)
 
+# Plotto tutte le possibili correlazioni tra tutte le variabili
 pairs(p224r63_2011)
