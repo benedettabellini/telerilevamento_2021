@@ -15,3 +15,17 @@ plot(p224r63_2011$B1_sre, p224r63_2011$B2_sre, col="red", pch=19, cex=2)
 
 # Plotto tutte le possibili correlazioni tra tutte le variabili
 pairs(p224r63_2011)
+
+# diminuisco la dimensione dell'immagine aggregando i pixel (ricampionamento)
+p224r63_2011res <- aggregate(p224r63_2011, fact=10)
+
+
+par(mfrow=c(2,1)) # apro una finestra grafica 2x1
+plotRGB(p224r63_2011, 4, 3, 2, stretch="lin") # plotto l'immagine originale
+plotRGB(p224r63_2011res, 4, 3, 2, stretch="lin") # plotto l'immagine ricampionata
+
+# PCA
+p224r63_2011res_pca <- rasterPCA(p224r63_2011res)
+
+summary(p224r63_2011res_pca$model)
+plotRGB(p224r63_2011res_pca$map, r=1, g=2, b=3, stretch="lin")
