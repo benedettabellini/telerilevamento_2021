@@ -28,4 +28,5 @@ plotRGB(p224r63_2011res, 4, 3, 2, stretch="lin") # plotto l'immagine ricampionat
 p224r63_2011res_pca <- rasterPCA(p224r63_2011res)
 
 summary(p224r63_2011res_pca$model) # sommario del modello 
+plot(p224r63_2011res_pca$map) # visualizzo le varie componenti
 plotRGB(p224r63_2011res_pca$map, r=1, g=2, b=3, stretch="lin") #plotto le prime 3 bande 
