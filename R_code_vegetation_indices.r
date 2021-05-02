@@ -48,9 +48,16 @@ plot(ndvi1, col=cl) # lo visualizzo
 ndvi2 <- (defor2$defor2.1 - defor2$defor2.2) / (defor2$defor2.1 + defor2$defor2.2)
 plot(ndvi2, col=cl) # lo visualizzo
 
-# RStoolbox::spectralIndices
-vi <- spectralIndices(defor1, green=3, red=2, nir=1) # calcolo tutti gli indici
-plot(vi, col=cl) # visualizzo gli indici calcolati 
+# Differenza fra i due ndvi
+difndvi <- ndvi1 - ndvi2
+cld <- colorRampPalette(c('blue', 'white', 'red'))(100) # creo scala di colori
+plot(difndvi, col=cld)
 
+# RStoolbox::spectralIndices
+vi1 <- spectralIndices(defor1, green=3, red=2, nir=1) # calcolo tutti gli indici
+plot(vi1, col=cl) # visualizzo gli indici calcolati 
+
+vi2 <- spectralIndices(defor2, green=3, red=2, nir=1) # calcolo tutti gli indici
+plot(vi2, col=cl)
 
 
