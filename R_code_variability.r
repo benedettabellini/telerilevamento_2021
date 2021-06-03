@@ -23,7 +23,7 @@ clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red
 plot(ndvisd3, col=clsd) #plotto
 
 #Calcolo della media dell'ndvi
-ndvimean3 <- focal(ndvi, w=matrix(1/9,nrow=3,ncol=3), fun=mean)
+ndvimean3 <- focal(ndvi, w=matrix(1/9,nrow=3,ncol=3), fun=mean) #con moving window 3x3
 clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100) #creo scala di colori
 plot(ndvimean3, col=clsd) #plotto
 
