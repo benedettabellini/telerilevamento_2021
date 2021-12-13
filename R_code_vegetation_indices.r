@@ -1,4 +1,4 @@
-# R_code_vegetation_indices.r
+## R_code_vegetation_indices.r
 
 library(raster) #richiamo il pacchetto 
 library(RStoolbox) # richiamo il pacchetto per calcolare gli ndvi
