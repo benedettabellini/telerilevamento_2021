@@ -1,0 +1,9 @@
+#Esame Telerilevamento 
+
+library(raster)
+library(rasterVis)
+
+setwd("/Users/benedettabellini/sardegna")
+rlist <-list.files(pattern="T32TMK_20190916T101029_B")
+import <- lapply(rlist,raster)
+Sard2019 <- stack(import)
