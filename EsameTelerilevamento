@@ -51,6 +51,12 @@ plot(NBR21, col=cl)
 deltaNBR <- NBR19-NBR21
 plot(deltaNBR, col=cl)
 
+ndvi <- ()
+
 # Profilo spettrale
 
-plorRGB( ,
+red21_20m<- aggregate(red21, fact=2)
+list21_20m <- c("swir21","nir21_20m","red21_20m")
+import21_20m <- lapply(list21_20m,raster)
+Sard2021 <- stack(import2)
+plotRGB(list21_20m, 1,2,3, stretch="lin")
