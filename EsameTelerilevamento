@@ -50,3 +50,7 @@ plot(NBR19, col=cl)
 plot(NBR21, col=cl)
 deltaNBR <- NBR19-NBR21
 plot(deltaNBR, col=cl)
+
+# Profilo spettrale
+
+plorRGB( ,
