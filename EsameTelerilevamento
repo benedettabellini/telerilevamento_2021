@@ -2,7 +2,7 @@
 
 library(raster)
 library(rasterVis)
-
+library(RStoolbox)
 setwd("/Users/benedettabellini/sardegna")
 rlist <-list.files(pattern="T32TMK_20190916T101029_10m_B")
 import <- lapply(rlist,raster)
@@ -11,3 +11,25 @@ Sard2019 <- stack(import)
 rlist2 <-list.files(pattern="T32TMK_20210905T100549_10m_B")
 import2 <- lapply(rlist2,raster)
 Sard2021 <- stack(import2)
+
+# presento le immagini 
+par(mfrow=c(1,2))
+plotRGB(Sard2019, 3,2,1, stretch="lin")
+plotRGB(Sard2021, 3,2,1, stretch="lin")
+
+#ndvi=(NIR-RED)/(NIR+RED)
+#ndvi 2019
+red19 <- brick("T32TMK_20190916T101029_10m_B04.jp2")
+nir19 <- brick("T32TMK_20190916T101029_10m_B08.jp2") 
+ndvi19 <- (nir19-red19)/(nir19+red19)
+plot(ndvi19)
+
+#ndvi21
+red21 <- brick("T32TMK_20210905T100549_10m_B04.jp2")
+nir21 <- brick("T32TMK_20210905T100549_10m_B08.jp2")
+ndvi21 <- (nir21-red21)/(nir21+red21)
+plot(ndvi21)
+# Visualizzo i due ndvi 
+par(mfrow=c(1,2))
+plot(ndvi19)
+plot(ndvi21)
