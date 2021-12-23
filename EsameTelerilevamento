@@ -36,7 +36,7 @@ plot(ndvi21)
 
 
 cl <- colorRampPalette(c("black","dark red","orange","pink","green"))(100)
-# associo l'immagine nir da 10m a 20 m (cambio risoluzione)
+# cambio risoluzione all'immagine nir da 10m a 20 m 
 swir19 <- brick("T32TMK_20190916T101029_B12.jp2") 
 nir19_20m<- aggregate(nir19, fact=2)
 NBR19 <- (nir19_20m-swir19)/(nir19_20m+swir19) # calcolo l'NBR
