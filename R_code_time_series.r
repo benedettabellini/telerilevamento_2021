@@ -61,5 +61,5 @@ melt
 levelplot(melt)
 melt_amount <- melt$X2007annual_melt - melt$X1979annual_melt # sottraggo l'immagine del 1979 al 2007
 clb <- colorRampPalette(c("blue", "white","red"))(100) # creo una scala di colori
-plot(melt_amount, col=clb) # plotto la differenza fra i due anni 
+plot(melt_amount, col=clb) # plotto la differenza fra i due anni
 levelplot(melt_amount, col.regions=clb)
