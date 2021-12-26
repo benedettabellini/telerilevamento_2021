@@ -3,7 +3,7 @@
 library(raster) #richiamo il pacchetto raster
 library(RStoolbox) # richiamo il pacchetto RStoolbox
 
-setwd("/Users/benedettabellini/lab/") # setto cartella di lavoro
+setwd("/Users/benedettabellini/lab/") # setto la cartella di lavoro
 p224r63_2011 <- brick("p224r63_2011_masked.grd") # importo l'immagine 
 
 plot(p224r63_2011) # plotto l'immagine con le varie bande
