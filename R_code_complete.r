@@ -29,7 +29,7 @@ plot(p224r63_2011)
 
 ### Day 2 
 # colour change
-cl <- colorRampPalette(c("black","grey","light grey"))(100)
+cl <- colorRampPalette(c("black","grey","light grey"))(100) 
 plot(p224r63_2011, col=cl)
 
 # colour change -> new 
