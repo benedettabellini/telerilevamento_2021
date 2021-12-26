@@ -66,7 +66,7 @@ plot(vi2, col=cl)
 # worldwide NDVI 
 plot(copNDVI)
 
-# trasformo i pixel con valori dei pixel 253, 254, 255 (acqua) in NA
+# trasformo i pixel con i valori dei pixel 253, 254, 255 (acqua) in NA
 copNDVI <- reclassify(copNDVI, cbind(253:255, NA)) 
 plot(copNDVI)
 
