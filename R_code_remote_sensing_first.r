@@ -9,8 +9,8 @@ plot(p224r63_2011)
 
 ### Day 2 
 # colour change
-cl <- colorRampPalette(c("black","grey","light grey"))(100)
-plot(p224r63_2011, col=cl)
+cl <- colorRampPalette(c("black","grey","light grey"))(100) #creo una scala di colori
+plot(p224r63_2011, col=cl) # visualizzo l'immagine con la scala di colori appena creata
 
 # colour change -> new 
 cls <- colorRampPalette(c("blue","red","magenta","pink","white"))(100)
@@ -39,7 +39,8 @@ plot(p224r63_2011$B1_sre, col=clt)
 dev.off()
 
 # par(mfrow...) prepara lo schermo a mettere le immagini in un dato numero di righe e colonne
-par(mfrow=c(1,2)) # par(mfcol...) se vogliamo usare prima il numero di colonne
+# par(mfcol...) se vogliamo usare prima il numero di colonne
+par(mfrow=c(1,2)) # creo una finestra grafica con una riga e due colonne 
 plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
 # 2 righe e 1 colonna
