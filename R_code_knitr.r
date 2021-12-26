@@ -1,6 +1,6 @@
 # R_code_knitr.r
 
-setwd("/Users/benedettabellini/lab/") #setto cartella di lavoro
+setwd("/Users/benedettabellini/lab/") #setto la cartella di lavoro
 
 library(knitr) # richiamo il pacchetto knitr
 
