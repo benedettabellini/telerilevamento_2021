@@ -3,7 +3,7 @@
 library(raster) #richiamo il pacchetto raster
 library(RStoolbox) #richiamo il pacchetto RStoolbox
 
-setwd("/Users/benedettabellini/lab/") #setto la cartella di lavoro
+setwd("/Users/benedettabellini/lab/") #setto cartella di lavoro
 
 so <- brick("Solar_Orbiter_s_first_views_of_the_Sun_pillars.jpg") #importo su R l'immagine
 so #visualizzo i dati dell'immagine
