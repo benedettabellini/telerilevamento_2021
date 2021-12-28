@@ -5,12 +5,16 @@ install.packages("raster") #installo il pacchetto raster
 install.packages("rasterVIs") #installo il pacchetto rasterVis
 install.packages("RStoolbox") #installo il pacchetto RStoolbox
 install.packages("rasterdiv") #installo il pacchetto rasterdiv
+install.packages("rgdal") #installo il pacchetto rgdal
+install.packages("ggplot2") #installo il pacchetto ggplot2
 
 #Richiamo i pacchetti installati in R
 library(raster) 
 library(rasterVis) 
 library(RStoolbox) 
 library(rasterdiv)
+library(rgdal)
+library(ggplot2)
 
 setwd("/Users/benedettabellini/sardegna") #setto la cartella di lavoro 
 
@@ -54,8 +58,8 @@ red19 <- raster("T32TMK_20190916T101029_10m_B04.tif") #con <raster> carico la ba
 nir19 <- raster("T32TMK_20190916T101029_10m_B08.tif") 
 ndvi19 <- (nir19-red19)/(nir19+red19) #calcolo l'indice di vegetazione dell'anno 2019
 #ndvi 2021
-red21 <- brick("T32TMK_20210905T100549_10m_B04.tif")
-nir21 <- brick("T32TMK_20210905T100549_10m_B08.tif")
+red21 <- raster("T32TMK_20210905T100549_10m_B04.tif")
+nir21 <- raster("T32TMK_20210905T100549_10m_B08.tif")
 ndvi21 <- (nir21-red21)/(nir21+red21) #calcolo l'indice di vegetazione dell'anno 2021
 #Visualizzo i due ndvi in una finestra 1x2
 par(mfrow=c(1,2))
@@ -72,13 +76,13 @@ plot(difndvi, col=cld) #plotto la differenza fra i due ndvi con la nuova scala d
 #carico la banda SWIR, essa ha una risoluzione di 20 m 
 swir19 <- raster("T32TMK_20190916T101029_B12.tif") 
 # cambio risoluzione all'immagine nir, sia del 2019 che del 2021, da 10m a 20 m 
-nir19_20m<- aggregate(nir19, fact=2) # all'immagine salvata in nir19 cambio moltiplico la risoluzione di 
+nir19_20m<- aggregate(nir19, fact=2) # all'immagine salvata in nir19 cambio moltiplico la risoluzione di un fattore x2 
 writeRaster(nir19_20m,"T32TMK_20190916T101029_20m_B08.tif") #salvo con la funzione <writeRaster> l'immagine appena creata nella cartella di lavoro 
 NBR19 <- (nir19_20m-swir19)/(nir19_20m+swir19) # calcolo l'NBR
 plot(NBR19, col=cl)
 #Eseguo lo stesso procedimento precidente all'immagine del 2021
 swir21 <- raster("T32TMK_20210905T100549_B12.tif") #carico la B12
-nir21_20m<- aggregate(nir21, fact=2)
+nir21_20m<- aggregate(nir21, fact=2) #cambio risoluzione alla B12 da 10 m a 20 m 
 writeRaster(nir21_20m,"T32TMK_20210905T100549_20m_B08.tif" )
 NBR21 <- (nir21_20m-swir21)/(nir21_20m+swir21)
 #Visualizzo i due NBR in una finestra 1x2
@@ -90,12 +94,12 @@ plot(NBR21, col=cl, main="NBR 05/09/2021")
 deltaNBR <- NBR19-NBR21
 plot(deltaNBR, col=cld) #plotto la differenza fra i due NDR con la scala di colori precedentemente creata
 
-
-
-# Profilo spettrale
-
-red21_20m<- aggregate(red21, fact=2)
-list21_20m <- c("swir21","nir21_20m","red21_20m")
+# Profilo spettrale - vogliamo vedere la riflettanza nelle bande SWIR-NIR-RED nell'immagine post incendio (2021):
+red21_20m<- aggregate(red21, fact=2) #cambio risoluzione alla B04 da 10 m a 20 m 
+writeRaster(red21_20m, "T32TMK_20210905T100549_20m_B04.tif") #salvo l'immagine appena creata
+writeRaster(swir21,"T32TMK_20210905T100549_20m_B12.tif") #creo un nuovo layer della B12 nominandolo con nome diverso 
+#creo una lista con i layer del 2021 con stessa risoluzione (20m)
+list21_20m <- list.files(pattern="T32TMK_20210905T100549_20m_B")
 import21_20m <- lapply(list21_20m,raster)
-Sard2021 <- stack(import2)
-plotRGB(list21_20m, 1,2,3, stretch="lin")
+Sard2021_20m <- stack(import21_20m)
+plotRGB(Sard21_20m, 3,2,1, stretch="lin")
