@@ -65,6 +65,7 @@ plot(ndvi21, col=cl, main="NDV 05/09/2021")
 difndvi <- ndvi19-ndvi21
 cld <- colorRampPalette(c("blue","white","red","black"))(100)#creo una nuova scala di colori
 plot(difndvi, col=cld) #plotto la differenza fra i due ndvi con la nuova scala di colori 
+# i valori più alti indicano dove ho maggior sofferenza della vegetazione
 
 # cambio risoluzione all'immagine nir da 10m a 20 m 
 swir19 <- raster("T32TMK_20190916T101029_B12.tif") 
