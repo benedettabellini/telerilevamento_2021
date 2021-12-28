@@ -99,7 +99,13 @@ red21_20m<- aggregate(red21, fact=2) #cambio risoluzione alla B04 da 10 m a 20 m
 writeRaster(red21_20m, "T32TMK_20210905T100549_20m_B04.tif") #salvo l'immagine appena creata
 writeRaster(swir21,"T32TMK_20210905T100549_20m_B12.tif") #creo un nuovo layer della B12 nominandolo con nome diverso 
 #creo una lista con i layer del 2021 con stessa risoluzione (20m)
-list21_20m <- list.files(pattern="T32TMK_20210905T100549_20m_B")
+list21_20m <- list.files(pattern="T32TMK_20210905T100549_20m_B") 
 import21_20m <- lapply(list21_20m,raster)
-Sard2021_20m <- stack(import21_20m)
-plotRGB(Sard21_20m, 3,2,1, stretch="lin")
+Sard2021_20m <- stack(import21_20m) 
+Sard2021_20m #contiene le bande RED-NIR-SWIR
+jpeg("Profilospettrale21.jpeg") # salvo l'immagine che creo in formato jpeg
+plotRGB(Sard2021_20m, 3,2,1, stretch="lin") #visualizzo l'immagine in falsi colori
+ps21_20m <- brick("Profilospettrale21.jpeg")#importo l'immagine appena creata
+plotRGB(ps21_20m, 1,2,3, stretch="lin")
+#creo il profilo spettrale
+click(ps2021_20m, id=T, xy=T, cell=T, type="p", pch=16, col="red")
