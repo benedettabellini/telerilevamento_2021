@@ -105,6 +105,7 @@ Sard2021_20m <- stack(import21_20m)
 Sard2021_20m #contiene le bande RED-NIR-SWIR
 jpeg("Profilospettrale21.jpeg") # salvo l'immagine che creo in formato jpeg
 plotRGB(Sard2021_20m, 3,2,1, stretch="lin") #visualizzo l'immagine in falsi colori
+dev.off() 
 ps21_20m <- brick("Profilospettrale21.jpeg")#importo l'immagine appena creata
 plotRGB(ps21_20m, 1,2,3, stretch="lin")
 #creo il profilo spettrale
