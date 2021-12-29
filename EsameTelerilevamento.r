@@ -109,4 +109,4 @@ dev.off()
 ps21_20m <- brick("Profilospettrale21.jpeg")#importo l'immagine appena creata
 plotRGB(ps21_20m, 1,2,3, stretch="lin")
 #creo il profilo spettrale
-click(ps21_20m, id=T, xy=T, type="l", col="red")
+click(ps21_20m, id=T, xy=T, type="l", col="red") 
