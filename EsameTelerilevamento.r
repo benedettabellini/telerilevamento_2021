@@ -202,3 +202,12 @@ ggplot(spectrals, aes=(x=band)) +
 #mentre nella vegetazione sana pre incendio si verifica il contrario, ossia una elevata riflettanza nel nir e minore nello swir
 #la riflettanza nella banda del rosso rimane immutata 
 
+###############################
+#poichè la vegetazione bruciata diminuisce la riflettanza nel nir, facciamo un levelplot della banda del nir nei due anni
+listswir <- list.files(pattern="B12") 
+importswir<- lapply(listswir,raster)
+Sardswir <- stack(importswir) 
+plot(Sardswir)
+clswir <- colorRampPalette(c("blue", "light blue","pink","red"))(100)
+levelplot(Sardswir, col.regions=clswir)
+####################################
