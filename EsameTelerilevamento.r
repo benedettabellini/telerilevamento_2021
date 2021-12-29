@@ -95,7 +95,7 @@ plot(NBR19, col=cl, main="NBR 16/09/2019")
 plot(NBR21, col=cl, main="NBR 05/09/2021")
 # Calcolo la differenza fra i due NBR 
 deltaNBR <- NBR19-NBR21
-plot(deltaNBR, col=cld) #plotto la differenza fra i due NDR con la scala di colori precedentemente creata
+plot(deltaNBR, col=cld) #plotto la differenza fra i due NBR con la scala di colori precedentemente creata
 
 # Firma spettrale - vogliamo vedere la riflettanza nelle bande SWIR-NIR-RED nell'immagine post incendio (2021):
 red21_20m<- aggregate(red21, fact=2) #cambio risoluzione alla B04 da 10 m a 20 m 
@@ -228,9 +228,10 @@ pairs(sardegna19)
 sardegna19_res <- aggregate(sardegna19, fact=30)
 
 sardegna19_res_pca <- rasterPCA(sardegna19_res) #PCA
-summary(sardegna19_res_pca$model) #sommario del modello #PC1 descrive l'88% della variabilità 
-plot(sardegna19_res_pca$map)
-
+#sommario del modello
+summary(sardegna19_res_pca$model)  #PC1 descrive l'88% della variabilità 
+plot(sardegna19_res_pca$map) #visualizzo le varie componenti
+plotRGB(sardegna19_res_pca$map, 1,2,3, stretch="lin") #plotto le prime tre bande
 
 
 
