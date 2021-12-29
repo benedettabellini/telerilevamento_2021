@@ -202,7 +202,7 @@ ggplot(spectrals, aes=(x=band)) +
 #mentre nella vegetazione sana pre incendio si verifica il contrario, ossia una elevata riflettanza nel nir e minore nello swir
 #la riflettanza nella banda del rosso rimane immutata 
 
-###############################
+###############################non mi dice niente
 #poichè la vegetazione bruciata diminuisce la riflettanza nel nir, facciamo un levelplot della banda del nir nei due anni
 listswir <- list.files(pattern="B12") 
 importswir<- lapply(listswir,raster)
@@ -211,3 +211,26 @@ plot(Sardswir)
 clswir <- colorRampPalette(c("blue", "light blue","pink","red"))(100)
 levelplot(Sardswir, col.regions=clswir)
 ####################################
+
+#PCA - Analisi delle componenti principali
+# 2019
+b1 <- raster("T32TMK_20190916T101029_10m_B02.tif") #importo banda del blu
+b2 <- raster("T32TMK_20190916T101029_10m_B03.tif") # " " del verde
+b3 <- raster("T32TMK_20190916T101029_10m_B04.tif") # " " del rosso
+b4 <- raster("T32TMK_20190916T101029_10m_B08.tif") # " " NIR
+sardegna19 <- stack(b1,b2,b3,b4) #credo un blocco unico con tutte e 4 le bande
+#plottiamo i valori della banda 1 contro i valore della banda 2
+plot(b1,b2, col="red", pch=19, cex=2)
+#Plotto con <pairs>tutte le possibili correlazioni tra tutte le possibili variabili 
+pairs(sardegna19)
+
+#diminuisco la dimensione dell'immagine aggregrando i pixel creando una immagine con risoluzione da 10x10m a 300x300m
+sardegna19_res <- aggregate(sardegna19, fact=30)
+
+sardegna19_res_pca <- rasterPCA(sardegna19_res) #PCA
+summary(sardegna19_res_pca$model) #sommario del modello #PC1 descrive l'88% della variabilità 
+plot(sardegna19_res_pca$map)
+
+
+
+
