@@ -124,3 +124,81 @@ ggplot(spectrals, aes=(x=band)) +
       geom_line(aes(x=band, y=vegetazione_nonbruciata), color="green") +
       labs(x="band", y="riflettanza")
 
+#####Multitemporale 
+#Ripeto lo stesso procedimento precedente nell'immagine del 2019
+red19_20m<- aggregate(red19, fact=2) #cambio risoluzione alla B04 da 10 m a 20 m 
+writeRaster(red19_20m, "T32TMK_20190916T101029_20m_B04.tif") #salvo l'immagine appena creata
+writeRaster(swir19,"T32TMK_20190916T101029_20m_B12.tif") #creo un nuovo layer della B12 nominandolo con nome diverso 
+#creo una lista con i layer del 2021 con stessa risoluzione (20m)
+list19_20m <- list.files(pattern="T32TMK_20190916T101029_20m_B") 
+import19_20m <- lapply(list19_20m,raster)
+Sard2019_20m <- stack(import19_20m) 
+Sard2019_20m #contiene le bande RED-NIR-SWIR
+jpeg("Profilospettrale19.jpeg") # salvo l'immagine che creo in formato jpeg
+plotRGB(Sard2019_20m, 3,2,1, stretch="lin") #visualizzo l'immagine in falsi colori
+dev.off() 
+ps19_20m <- brick("Profilospettrale19.jpeg")#importo l'immagine appena creata
+plotRGB(ps19_20m, 1,2,3, stretch="lin")
+
+#visualizzo in una finestra 1x2 i plot RGB del 2019,2021
+par(mfrow=c(1,2))
+plotRGB(ps19_20m, 1,2,3, stretch="lin")
+plotRGB(ps21_20m, 1,2,3, stretch="lin")
+
+#faccio i click casuali nella zona che è stata interessata all'incendio pre e post
+#2019
+plotRGB(ps19_20m, 1,2,3, stretch="lin")
+click(ps19_20m, id=T, xy=T, type="o", col="red") 
+#Results
+#      x     y Profilospettrale19.1 Profilospettrale19.2 Profilospettrale19.3
+#1 295.5 220.5                   58                  242                   60
+#      x     y Profilospettrale19.1 Profilospettrale19.2 Profilospettrale19.3
+#1 288.5 229.5                   52                  174                   75
+#      x     y Profilospettrale19.1 Profilospettrale19.2 Profilospettrale19.3
+#1 279.5 237.5                   36                  190                   42
+#      x     y Profilospettrale19.1 Profilospettrale19.2 Profilospettrale19.3
+#1 274.5 246.5                   84                  186                   86
+#      x     y Profilospettrale19.1 Profilospettrale19.2 Profilospettrale19.3
+#1 277.5 260.5                   63                  183                   85
+
+#2021
+plotRGB(ps21_20m, 1,2,3, stretch="lin")
+click(ps21_20m, id=T, xy=T, type="o", col="red") 
+#Results
+#      x     y Profilospettrale21.1 Profilospettrale21.2 Profilospettrale21.3
+#1 287.5 238.5                  106                   37                   58
+#      x     y Profilospettrale21.1 Profilospettrale21.2 Profilospettrale21.3
+#1 278.5 243.5                  199                   47                   98
+#      x     y Profilospettrale21.1 Profilospettrale21.2 Profilospettrale21.3
+#1 271.5 252.5                   73                   46                   51
+#      x     y Profilospettrale21.1 Profilospettrale21.2 Profilospettrale21.3
+#1 269.5 260.5                  137                  118                  112
+#      x     y Profilospettrale21.1 Profilospettrale21.2 Profilospettrale21.3
+#1 268.5 269.5                  135                   67                   90
+#creo un dataframe con i valori di riflettanza ottenuti e faccio con <le firme spettrali>
+time1 <- c(58,242,60)
+time1p2 <- c(52,174,75)
+time1p3 <- c(36,190,42)
+time1p4 <- c(84,186,86)
+time1p5 <- c(63,183,85)
+time2 <- c(106,37,58)
+time2p2 <- c(199,47,98)
+time2p3 <- c(73,46,51)
+time2p4 <- c(137,118,112)
+time2p5 <- c(135,67,90)
+ggplot(spectrals, aes=(x=band)) + 
+      geom_line(aes(x=band, y=time1), color="red") + 
+      geom_line(aes(x=band, y=time1p2), color="red") + 
+      geom_line(aes(x=band, y=time1p3), color="red") + 
+      geom_line(aes(x=band, y=time1p4), color="red") + 
+      geom_line(aes(x=band, y=time1p5), color="red") + 
+      geom_line(aes(x=band, y=time2), color="green") +
+      geom_line(aes(x=band, y=time2p2), color="green") +
+      geom_line(aes(x=band, y=time2p3), color="green") +
+      geom_line(aes(x=band, y=time2p4), color="green") +
+      geom_line(aes(x=band, y=time2p5), color="green") +
+      labs(x="band", y="riflettanza")
+#si vede come la zona interessata dall'incendio nel 2021 ha una elevata riflettanza nello swir e una bassa riflettanza nel nir 
+#mentre nella vegetazione sana pre incendio si verifica il contrario, ossia una elevata riflettanza nel nir e minore nello swir
+#la riflettanza nella banda del rosso rimane immutata 
+
