@@ -1,5 +1,6 @@
 #Esame Telerilevamento 
 # Sardegna occidentale, zona dell'Oristanese
+#Confronto fra immagini del 16/09/2019 e 09/05/2021 ossia pre e post incendio avvenuto nell'agosto 2020
 
 install.packages("raster") #installo il pacchetto raster 
 install.packages("rasterVIs") #installo il pacchetto rasterVis
@@ -28,6 +29,13 @@ rlist2 <-list.files(pattern="T32TMK_20210905T100549_10m_B")
 import2 <- lapply(rlist2,raster)
 Sard2021 <- stack(import2)
 
+#Bande Sentinel
+#B02: blu
+#B03: verde
+#B04: rosso
+#B08: nir
+#B12: swir
+
 # presento le due immagini nel visibile, e le visualizzo in una finestra grafica 1x2
 par(mfrow=c(1,2)) # la funzione <par> crea una finestra grafica
 plotRGB(Sard2019, 3,2,1, stretch="lin") #la funzione <plotRGB> permette di visualizzare 3 bande alla volta, con uno stretch lineare
@@ -44,11 +52,6 @@ plotRGB(Sard2019, 3,2,1, stretch="lin")
 plotRGB(Sard2021, 3,2,1, stretch="lin")
 plotRGB(Sard2019, 4,3,2, stretch="lin")
 plotRGB(Sard2021, 4,3,2, stretch="lin")
-
-#Bande Sentinel
-#B04: rosso
-#B08: nir
-#B12: swir
 
 cl <- colorRampPalette(c("darkblue","yellow","red","black"))(100) #creo una scala di colori per visualizzare le immagini che creerò 
 
@@ -94,7 +97,7 @@ plot(NBR21, col=cl, main="NBR 05/09/2021")
 deltaNBR <- NBR19-NBR21
 plot(deltaNBR, col=cld) #plotto la differenza fra i due NDR con la scala di colori precedentemente creata
 
-# Profilo spettrale - vogliamo vedere la riflettanza nelle bande SWIR-NIR-RED nell'immagine post incendio (2021):
+# Firma spettrale - vogliamo vedere la riflettanza nelle bande SWIR-NIR-RED nell'immagine post incendio (2021):
 red21_20m<- aggregate(red21, fact=2) #cambio risoluzione alla B04 da 10 m a 20 m 
 writeRaster(red21_20m, "T32TMK_20210905T100549_20m_B04.tif") #salvo l'immagine appena creata
 writeRaster(swir21,"T32TMK_20210905T100549_20m_B12.tif") #creo un nuovo layer della B12 nominandolo con nome diverso 
@@ -108,5 +111,16 @@ plotRGB(Sard2021_20m, 3,2,1, stretch="lin") #visualizzo l'immagine in falsi colo
 dev.off() 
 ps21_20m <- brick("Profilospettrale21.jpeg")#importo l'immagine appena creata
 plotRGB(ps21_20m, 1,2,3, stretch="lin")
-#creo il profilo spettrale
-click(ps21_20m, id=T, xy=T, type="l", col="red") 
+#clicco in un pixel di vegetazione non interessata dall'incendio e in un pixel di vegetazione interessato dall'incendio
+click(ps21_20m, id=T, xy=T, type="o", col="red") 
+#creo una tabella dove metto per ogni banda i valori di riflettanza ottenuti
+band <- c(1,2,3)
+vegetazione_bruciata <- c(116,17,45)
+vegetazione_nonbruciata <- c(31,210,30)
+spectrals <- data.frame(band, vegetazione_bruciata,vegetazione_nonbruciata)
+#grafico delle firme spettrali 
+ggplot(spectrals, aes=(x=band)) + 
+      geom_line(aes(x=band, y=vegetazione_bruciata), color="red") + 
+      geom_line(aes(x=band, y=vegetazione_nonbruciata), color="green") +
+      labs(x="band", y="riflettanza")
+
