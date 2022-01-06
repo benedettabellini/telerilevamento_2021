@@ -233,5 +233,5 @@ summary(sardegna19_res_pca$model)  #PC1 descrive l'88% della variabilità
 plot(sardegna19_res_pca$map) #visualizzo le varie componenti
 plotRGB(sardegna19_res_pca$map, 1,2,3, stretch="lin") #plotto le prime tre bande
 
-
+#calcolo deviazione standard 
 
