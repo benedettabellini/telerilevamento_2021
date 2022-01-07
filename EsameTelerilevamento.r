@@ -202,36 +202,15 @@ ggplot(spectrals, aes=(x=band)) +
 #mentre nella vegetazione sana pre incendio si verifica il contrario, ossia una elevata riflettanza nel nir e minore nello swir
 #la riflettanza nella banda del rosso rimane immutata 
 
-###############################non mi dice niente
-#poichè la vegetazione bruciata diminuisce la riflettanza nel nir, facciamo un levelplot della banda del nir nei due anni
-listswir <- list.files(pattern="B12") 
-importswir<- lapply(listswir,raster)
-Sardswir <- stack(importswir) 
-plot(Sardswir)
-clswir <- colorRampPalette(c("blue", "light blue","pink","red"))(100)
-levelplot(Sardswir, col.regions=clswir)
-####################################
-
 #PCA - Analisi delle componenti principali
-# 2019
-b1 <- raster("T32TMK_20190916T101029_10m_B02.tif") #importo banda del blu
-b2 <- raster("T32TMK_20190916T101029_10m_B03.tif") # " " del verde
-b3 <- raster("T32TMK_20190916T101029_10m_B04.tif") # " " del rosso
-b4 <- raster("T32TMK_20190916T101029_10m_B08.tif") # " " NIR
-sardegna19 <- stack(b1,b2,b3,b4) #credo un blocco unico con tutte e 4 le bande
-#plottiamo i valori della banda 1 contro i valore della banda 2
-plot(b1,b2, col="red", pch=19, cex=2)
-#Plotto con <pairs>tutte le possibili correlazioni tra tutte le possibili variabili 
-pairs(sardegna19)
-
-#diminuisco la dimensione dell'immagine aggregrando i pixel creando una immagine con risoluzione da 10x10m a 300x300m
-sardegna19_res <- aggregate(sardegna19, fact=30)
-
-sardegna19_res_pca <- rasterPCA(sardegna19_res) #PCA
-#sommario del modello
-summary(sardegna19_res_pca$model)  #PC1 descrive l'88% della variabilità 
-plot(sardegna19_res_pca$map) #visualizzo le varie componenti
-plotRGB(sardegna19_res_pca$map, 1,2,3, stretch="lin") #plotto le prime tre bande
-
-#calcolo deviazione standard 
-
+# pairs fra i deltaNBR e deltaNDVI
+deltaNDVI <-resample(difndvi,deltaNBR,method="bilinear") #ricampiono il ndvi2013 secondo le dim del 2021, con metodo bilineare
+indici <- stack(deltaNDVI,deltaNBR)
+plot(indici)
+pairs(indici) # 55% di correlazione 
+#pca 
+sardegnaindpca <- rasterPCA(indici)
+summary(sardegnaindpca$model) #81% di correlazione
+plot(sardegnaindpca$map)
+pca1norm <- sardegnaindpca$map$PC1/maxValue(sardegnaindpca$map$PC1)
+plot(pca1norm)
