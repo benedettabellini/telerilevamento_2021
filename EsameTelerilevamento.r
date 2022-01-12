@@ -47,13 +47,14 @@ plotRGB(Sard2019, 4,3,2, stretch="lin")
 plotRGB(Sard2021, 4,3,2, stretch="lin")
 
 # Visualizzo sia le immagini nel visibile che in falsi colori in una finestra 2x2
+jpeg("Immagini")
 par(mfrow=c(2,2)) 
 plotRGB(Sard2019, 3,2,1, stretch="lin") 
 plotRGB(Sard2021, 3,2,1, stretch="lin")
 plotRGB(Sard2019, 4,3,2, stretch="lin")
 plotRGB(Sard2021, 4,3,2, stretch="lin")
-
-cl <- colorRampPalette(c("darkblue","yellow","red","black"))(100) #creo una scala di colori per visualizzare le immagini che creerò 
+dev.off()
+cl <- colorRampPalette(c("darkblue","green","red","black")(100) #creo una scala di colori per visualizzare le immagini che creerò 
 
 #Calcolo l'ndvi=(NIR-RED)/(NIR+RED)
 #ndvi 2019
@@ -71,8 +72,8 @@ plot(ndvi21, col=cl, main="NDV 05/09/2021")
 
 #Differenza fra i due ndvi 
 difndvi <- ndvi19-ndvi21
-cld <- colorRampPalette(c("blue","white","red","black"))(100)#creo una nuova scala di colori
-plot(difndvi, col=cld) #plotto la differenza fra i due ndvi con la nuova scala di colori 
+cld <- colorRampPalette(c("blue","white","magenta","black"))(100)#creo una nuova scala di colori
+plot(difndvi, col=cld, main="∆NDVI") #plotto la differenza fra i due ndvi con la nuova scala di colori 
 # i valori più alti indicano dove ho maggior sofferenza della vegetazione
 
 #Calcolo NBR, prima devo fare delle procedure:
@@ -95,7 +96,7 @@ plot(NBR19, col=cl, main="NBR 16/09/2019")
 plot(NBR21, col=cl, main="NBR 05/09/2021")
 # Calcolo la differenza fra i due NBR 
 deltaNBR <- NBR19-NBR21
-plot(deltaNBR, col=cld) #plotto la differenza fra i due NBR con la scala di colori precedentemente creata
+plot(deltaNBR, col=cld, main="∆NBR") #plotto la differenza fra i due NBR con la scala di colori precedentemente creata
 
 # Firma spettrale - vogliamo vedere la riflettanza nelle bande SWIR-NIR-RED nell'immagine post incendio (2021):
 red21_20m<- aggregate(red21, fact=2) #cambio risoluzione alla B04 da 10 m a 20 m 
