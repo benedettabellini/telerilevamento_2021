@@ -1,6 +1,7 @@
 #Esame Telerilevamento 
-# Sardegna occidentale, zona dell'Oristanese
-#Confronto fra immagini del 16/09/2019 e 09/05/2021 ossia pre e post incendio avvenuto nell'agosto 2020
+#Sardegna centro-occidentale, zona dell'Oristanese - Montiferru interessata da incendio nel luglio 2021
+#Analisi multitemporale dell'area percorsa da incedio
+# Elaborazioni immagini sentinel 16/09/2019 e 09/05/2021 ossia pre e post incendio
 
 install.packages("raster") #installo il pacchetto raster 
 install.packages("rasterVIs") #installo il pacchetto rasterVis
@@ -176,7 +177,7 @@ click(ps21_20m, id=T, xy=T, type="o", col="red")
 #1 269.5 260.5                  137                  118                  112
 #      x     y Profilospettrale21.1 Profilospettrale21.2 Profilospettrale21.3
 #1 268.5 269.5                  135                   67                   90
-#creo un dataframe con i valori di riflettanza ottenuti e faccio con <le firme spettrali>
+#creo un dataframe con i valori di riflettanza ottenuti e faccio il grafico <le firme spettrali>
 time1 <- c(58,242,60)
 time1p2 <- c(52,174,75)
 time1p3 <- c(36,190,42)
@@ -187,6 +188,8 @@ time2p2 <- c(199,47,98)
 time2p3 <- c(73,46,51)
 time2p4 <- c(137,118,112)
 time2p5 <- c(135,67,90)
+band <- c(1,2,3)                      
+spectrals <- data.frame(band, time1, time1p2, time1p3, time1p4, time1p5, time2, time2p2, time2p3, time2p4, time2p5)                       
 ggplot(spectrals, aes=(x=band)) + 
       geom_line(aes(x=band, y=time1), color="red") + 
       geom_line(aes(x=band, y=time1p2), color="red") + 
@@ -198,7 +201,8 @@ ggplot(spectrals, aes=(x=band)) +
       geom_line(aes(x=band, y=time2p3), color="green") +
       geom_line(aes(x=band, y=time2p4), color="green") +
       geom_line(aes(x=band, y=time2p5), color="green") +
-      labs(x="band", y="riflettanza")
+      labs(x="band", y="riflettanza") +
+      labs(title="Firme spettrali RGB:832")
 #si vede come la zona interessata dall'incendio nel 2021 ha una elevata riflettanza nello swir e una bassa riflettanza nel nir 
 #mentre nella vegetazione sana pre incendio si verifica il contrario, ossia una elevata riflettanza nel nir e minore nello swir
 #la riflettanza nella banda del rosso rimane immutata 
@@ -206,12 +210,12 @@ ggplot(spectrals, aes=(x=band)) +
 #PCA - Analisi delle componenti principali
 # pairs fra i deltaNBR e deltaNDVI
 deltaNDVI <-resample(difndvi,deltaNBR,method="bilinear") #ricampiono il ndvi2013 secondo le dim del 2021, con metodo bilineare
-indici <- stack(deltaNDVI,deltaNBR)
-plot(indici)
+indici <- stack(deltaNDVI,deltaNBR) # creo una lista con la funzione <stack>
+plot(indici) # visualizzo gli oggetti nella lista
 pairs(indici) # 55% di correlazione 
 #pca 
 sardegnaindpca <- rasterPCA(indici)
 summary(sardegnaindpca$model) #81% di correlazione
 plot(sardegnaindpca$map)
-pca1norm <- sardegnaindpca$map$PC1/maxValue(sardegnaindpca$map$PC1)
-plot(pca1norm)
+pca1norm <- sardegnaindpca$map$PC1/maxValue(sardegnaindpca$map$PC1) # associo una variabile la mappa normalizzata al suo valore massimo
+plot(pca1norm, main="PCA normalizzata")
