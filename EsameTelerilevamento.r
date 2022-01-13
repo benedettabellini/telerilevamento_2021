@@ -202,7 +202,7 @@ ggplot(spectrals, aes=(x=band)) +
       geom_line(aes(x=band, y=time2p4), color="green") +
       geom_line(aes(x=band, y=time2p5), color="green") +
       labs(x="band", y="riflettanza") +
-      labs(title="Firme spettrali RGB:832") 
+      labs(title="Firme spettrali RGB:832") #plotto tramite <ggplot> il dataframe appena creato
 #si vede come la zona interessata dall'incendio nel 2021 ha una elevata riflettanza nello swir e una bassa riflettanza nel nir 
 #mentre nella vegetazione sana pre incendio si verifica il contrario, ossia una elevata riflettanza nel nir e minore nello swir
 #la riflettanza nella banda del rosso rimane immutata 
@@ -216,7 +216,7 @@ pairs(indici) # 55% di correlazione
 #pca 
 sardegnaindpca <- rasterPCA(indici)
 summary(sardegnaindpca$model) #81% di correlazione
-plot(sardegnaindpca$map)
+plot(sardegnaindpca$map) # plotto la mappa
 pca1norm <- sardegnaindpca$map$PC1/maxValue(sardegnaindpca$map$PC1) # associo una variabile la mappa normalizzata al suo valore massimo
-plot(pca1norm)
+plot(pca1norm) #plotto la mappa PC1 normalizzata
                                               
