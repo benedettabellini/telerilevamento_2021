@@ -218,4 +218,4 @@ sardegnaindpca <- rasterPCA(indici)
 summary(sardegnaindpca$model) #81% di correlazione
 plot(sardegnaindpca$map)
 pca1norm <- sardegnaindpca$map$PC1/maxValue(sardegnaindpca$map$PC1) # associo una variabile la mappa normalizzata al suo valore massimo
-plot(pca1norm, main="PCA normalizzata")
+plot(pca1norm)
