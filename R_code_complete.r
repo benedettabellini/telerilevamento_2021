@@ -34,7 +34,7 @@ plot(p224r63_2011, col=cl)
 
 # colour change -> new 
 cls <- colorRampPalette(c("blue","red","magenta","pink","white"))(100)
-plot(p224r63_2011, col=cls)
+plot(p224r63_2011, col=cls) #plotto l'immagine con la nuova scala di colori 
 
 ### Day 3
 # Bande Landsat
@@ -141,7 +141,7 @@ library(RStoolbox)
 
 # Installo il pacchetto ggplot2
 install.packages("ggplot2")
-library(ggplot2)
+library(ggplot2) #richiamo il pacchetto ggplot2
 
 ### DAY 5
 # Multitemporal set
@@ -365,21 +365,23 @@ plot(gcc4$map)
 
 # 7. R code ggplot2
 
+# Richiamo i pacchetti precedentemente istallati 
 library(raster)
 library(RStoolbox)
 library(ggplot2)
 library(gridExtra)
 
-setwd("~/lab/")
+setwd("~/lab/") #setto la cartella di lavoro
 
-p224r63 <- brick("p224r63_2011_masked.grd")
+p224r63 <- brick("p224r63_2011_masked.grd")# importo l'immagine con la funzione <brick>
 
-ggRGB(p224r63,3,2,1, stretch="lin")
+ggRGB(p224r63,3,2,1, stretch="lin") 
 ggRGB(p224r63,4,3,2, stretch="lin")
 
-p1 <- ggRGB(p224r63,3,2,1, stretch="lin")
-p2 <- ggRGB(p224r63,4,3,2, stretch="lin")
+p1 <- ggRGB(p224r63,3,2,1, stretch="lin") #r=3, g=2, b=1
+p2 <- ggRGB(p224r63,4,3,2, stretch="lin") #r=4, g=3, b=1
 
+#Visualizzo insieme le due immagini RGB
 grid.arrange(p1, p2, nrow = 2) # this needs gridExtra
 
 #-------------------------------------------
@@ -442,7 +444,7 @@ plot(ndvi2, col=cl) # lo visualizzo
 # Differenza fra i due ndvi
 difndvi <- ndvi1 - ndvi2
 cld <- colorRampPalette(c('blue', 'white', 'red'))(100) # creo scala di colori
-plot(difndvi, col=cld)
+plot(difndvi, col=cld) # plotto l'ndvi con la nuova scala di colori
 
 # RStoolbox::spectralIndices
 vi1 <- spectralIndices(defor1, green=3, red=2, nir=1) # calcolo tutti gli indici
@@ -631,12 +633,14 @@ grid.arrange(p1, p2, p3, nrow=1) #metto insieme le tre mappe
 
 # R_code_spectral_signatures.r
 
+# Richiamo i pacchetti precedentemente installati
 library(raster)
 library(rgdal)
 library(ggplot2)
-setwd("/Users/benedettabellini/lab/")
 
-defor2 <- brick("defor2.jpg")
+setwd("/Users/benedettabellini/lab/") # setto la cartella di lavoro
+
+defor2 <- brick("defor2.jpg") #importo l'immagine e l'associo alla variabile 
 # NIR, red, green
 plotRGB(defor2, 1, 2, 3, stretch="Lin")
 plotRGB(defor2, 1, 2, 3, stretch="hist")
