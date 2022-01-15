@@ -75,7 +75,7 @@ plot(ndvi21, col=cl, main="NDV 05/09/2021")
 difndvi <- ndvi19-ndvi21
 cld <- colorRampPalette(c("blue","white","magenta","black"))(100)#creo una nuova scala di colori
 plot(difndvi, col=cld, main="∆NDVI") #plotto la differenza fra i due ndvi con la nuova scala di colori 
-# i valori più alti indicano dove ho maggior sofferenza della vegetazione
+# si individua una zona con i valori più alti di deltaNDVI che indicano dove ho maggior sofferenza della vegetazione dal 2019 al 2021.
 
 #Calcolo NBR, prima devo fare delle procedure:
 #carico la banda SWIR, essa ha una risoluzione di 20 m 
@@ -149,8 +149,8 @@ plotRGB(ps21_20m, 1,2,3, stretch="lin")
 
 #faccio i click casuali nella zona che è stata interessata all'incendio pre e post
 #2019
-plotRGB(ps19_20m, 1,2,3, stretch="lin")
-click(ps19_20m, id=T, xy=T, type="o", col="red") 
+plotRGB(ps19_20m, 1,2,3, stretch="lin") #plotto l'immagine in RGB:SWIR-NIR-RED
+click(ps19_20m, id=T, xy=T, type="o", col="red") # con click faccio i punti all'interno della mappa
 #Results
 #      x     y Profilospettrale19.1 Profilospettrale19.2 Profilospettrale19.3
 #1 295.5 220.5                   58                  242                   60
@@ -178,7 +178,7 @@ click(ps21_20m, id=T, xy=T, type="o", col="red")
 #      x     y Profilospettrale21.1 Profilospettrale21.2 Profilospettrale21.3
 #1 268.5 269.5                  135                   67                   90
 #creo un dataframe con i valori di riflettanza ottenuti e faccio il grafico <le firme spettrali>
-time1 <- c(58,242,60)
+time1 <- c(58,242,60) # con c() creo un vettore composto dai numeri di riflettanza del primo punto che vado a salvare nella variabile time1
 time1p2 <- c(52,174,75)
 time1p3 <- c(36,190,42)
 time1p4 <- c(84,186,86)
@@ -210,13 +210,13 @@ ggplot(spectrals, aes=(x=band)) +
 #PCA - Analisi delle componenti principali
 # pairs fra i deltaNBR e deltaNDVI
 deltaNDVI <-resample(difndvi,deltaNBR,method="bilinear") #ricampiono il ndvi2013 secondo le dim del 2021, con metodo bilineare
-indici <- stack(deltaNDVI,deltaNBR) # creo una lista con la funzione <stack>
+indici <- stack(deltaNDVI,deltaNBR) # creo una lista con la funzione <stack> contenente i due indici calcolati precedentemente
 plot(indici) # visualizzo gli oggetti nella lista
 pairs(indici) # 55% di correlazione 
 #pca 
 sardegnaindpca <- rasterPCA(indici)
-summary(sardegnaindpca$model) #81% di correlazione
+summary(sardegnaindpca$model) # faccio la summary del modello e vedo 81% di correlazione
 plot(sardegnaindpca$map) # plotto la mappa
-pca1norm <- sardegnaindpca$map$PC1/maxValue(sardegnaindpca$map$PC1) # associo una variabile la mappa normalizzata al suo valore massimo
+pca1norm <- sardegnaindpca$map$PC1/maxValue(sardegnaindpca$map$PC1) # associo ad una variabile la mappa della PC1 (che spiega l'88% dei dati) normalizzata al suo valore massimo
 plot(pca1norm) #plotto la mappa PC1 normalizzata
                                               
