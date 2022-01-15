@@ -378,8 +378,8 @@ p224r63 <- brick("p224r63_2011_masked.grd")# importo l'immagine con la funzione 
 ggRGB(p224r63,3,2,1, stretch="lin") 
 ggRGB(p224r63,4,3,2, stretch="lin")
 
-p1 <- ggRGB(p224r63,3,2,1, stretch="lin") #r=3, g=2, b=1
-p2 <- ggRGB(p224r63,4,3,2, stretch="lin") #r=4, g=3, b=1
+p1 <- ggRGB(p224r63,3,2,1, stretch="lin") #r=3, g=2, b=1 e l'associo alla variabile
+p2 <- ggRGB(p224r63,4,3,2, stretch="lin") #r=4, g=3, b=1 e l'associo alla variabile 
 
 #Visualizzo insieme le due immagini RGB
 grid.arrange(p1, p2, nrow = 2) # this needs gridExtra
